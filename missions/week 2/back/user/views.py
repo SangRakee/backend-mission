@@ -5,7 +5,16 @@ from django.contrib.auth.views import PasswordResetView
 from django.contrib import messages
 from django.conf import settings
 from django.core.mail import EmailMessage
-import requests
+
+# from accounts.models import User
+# from allauth.socialaccount.models import SocialAccount
+# from django.conf import settings
+# from dj_rest_auth.registration.views import SocialLoginView
+# from allauth.socialaccount.providers.google import views as google_view
+# from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+# from django.http import JsonResponse
+# import requests
+# from json.decoder import JSONDecodeError
 
 # 회원가입
 def signup(request):
@@ -41,6 +50,12 @@ def login(request):
     else:
         return render(request,'login.html')
 
+def kakao_login(request):
+    restApiKey = '043437c8945b496dc9d65e0d6d94135d' # 입력필요
+    redirectUrl = 'http://localhost:8000/accounts/kakao/login/callback/'
+    url = f'https://kauth.kakao.com/oauth/authorize?client_id={restApiKey}&redirect_uri={redirectUrl}&response_type=code'
+    return redirect(url)
+
 
 def index(request):
     print('1111',request)
@@ -48,6 +63,7 @@ def index(request):
     if request.session.get('access_token'):
         _context['check'] = True
     return render(request, 'login.html', _context)
+
 
 def kakaoLoginLogic(request):
     _restApiKey = '043437c8945b496dc9d65e0d6d94135d' # 입력필요
