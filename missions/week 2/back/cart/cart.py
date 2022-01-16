@@ -22,18 +22,22 @@ class Cart(object):
         cart_values = self.cart.values()
 
         product_ids=[]
+        product_sizes=[]
 
         for cart_value in cart_values:
             product_ids.append(cart_value['product_id'])
+            product_sizes.append(cart_value['opt_size'])
 
         products = Product.objects.filter(id__in=product_ids)
 
-        for product in products:
-            self.cart[str(cart_ids)]['product'] = product
+
+        for i in range(len(products)):
+            cart_id=str(products[i].id)+str(product_sizes[i])
+            self.cart[str(cart_id)]['product'] = products[i]
 
         for item in self.cart.values():
-            item['price'] = Decimal(item['bas_price']) + Decimal(item['opt_price'])
-            item['total_price'] = item['price'] * item['quantity']
+            item['sell_price'] = Decimal(item['price']) + Decimal(item['opt_price'])
+            item['total_price'] = item['sell_price'] * item['quantity']
 
             yield item
 

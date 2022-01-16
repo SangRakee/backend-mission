@@ -7,7 +7,7 @@
         <thead>
             <tr>
                 <th class="w-1/2" scope="col">상품정보</th>
-<!--                <th scope="col">옵션</th>-->
+                <th scope="col">옵션</th>
                 <th class="w-1/5" scope="col">수량</th>
                 <th class="w-2/12" scope="col">금액</th>
                 <th class="w-2/12" scope="col">총 금액</th>
@@ -28,10 +28,10 @@
                         </div>
 
                     </th>
-<!--                    <td>-->
-<!--                        {{item.quantity_form.opt_size}}-->
-<!--&lt;!&ndash;                        {{item.quantity_form.opt_price}}&ndash;&gt;-->
-<!--                    </td>-->
+                    <td>
+                        {{item.quantity_form.opt_size}}
+                        {{item.quantity_form.opt_price}}
+                    </td>
                     <td>
                         <form action="{% url 'cart:product_add' product.id %}" method="post">
                             {% csrf_token %}
