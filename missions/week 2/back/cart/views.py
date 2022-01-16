@@ -3,7 +3,6 @@ from django.views.decorators.http import require_POST
 
 from product.models import Product
 from user.models import Account
-
 from .forms import AddProductForm
 from .cart import Cart
 
@@ -16,7 +15,12 @@ def add(request, product_id):
 
     if form.is_valid():
         cd = form.cleaned_data
-        cart.add(product=product, quantity=cd['quantity'], is_update=cd['is_update'])
+        cart.add(product_id=product_id,
+                 product=product,
+                 quantity=cd['quantity'],
+                 is_update=cd['is_update'],
+                 opt_size=cd['opt_size'],
+                 opt_price=cd['opt_price'])
 
     return redirect('cart:detail')
 
