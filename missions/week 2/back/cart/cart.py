@@ -18,7 +18,13 @@ class Cart(object):
 
     def __iter__(self):
         cart_ids = self.cart.keys()
-        product_ids = self.cart.values()['product_id']
+
+        cart_values = self.cart.values()
+
+        product_ids=[]
+
+        for cart_value in cart_values:
+            product_ids.append(cart_value['product_id'])
 
         products = Product.objects.filter(id__in=product_ids)
 
